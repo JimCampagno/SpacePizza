@@ -36,7 +36,7 @@ enum Planet: String {
     }
     
     var displayName: String {
-        return self.rawValue.capitalized
+        return rawValue.capitalized
     }
     
 }

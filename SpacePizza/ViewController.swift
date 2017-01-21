@@ -14,6 +14,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var lowButton: UIButton!
     @IBOutlet weak var mediumButton: UIButton!
     @IBOutlet weak var highButton: UIButton!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var spaceJunkLevelLabel: UILabel!
+    
+    var selectedPlanet = Planet.mercury
+    let franksPizza = PizzaService(name: "Franks Pizza")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,15 +51,30 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let planet = Planet.all[row]
-        print(planet.displayName)
+        selectedPlanet = Planet.all[row]
+        updateCost()
     }
     
+    @IBAction func lowSpaceJunkChange(_ sender: Any) {
+        franksPizza.spaceJunk = .low
+        updateCost()
+    }
     
+    @IBAction func mediumSpaceJunkChange(_ sender: Any) {
+        franksPizza.spaceJunk = .medium
+        updateCost()
+    }
     
-    
-    
-    
-    
+    @IBAction func highSpaceJunkChange(_ sender: Any) {
+        franksPizza.spaceJunk = .high
+        updateCost()
+    }
+
+    func updateCost() {
+        let cost = franksPizza.deliveryCharge(for: selectedPlanet)
+        let costText = "$\(cost)0"
+        costLabel.text = costText
+        spaceJunkLevelLabel.text = "Planet: \(selectedPlanet.displayName)" + "\n" + "Space Junk: \(franksPizza.spaceJunk.displayName)"
+    }
 
 }

@@ -9,8 +9,12 @@
 import Foundation
 
 
-enum SpaceJunk {
+enum SpaceJunk: String {
     
     case low, medium, high
+    
+    var displayName: String {
+        return rawValue.capitalized
+    }
     
 }
