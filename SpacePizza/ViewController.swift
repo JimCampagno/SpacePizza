@@ -11,11 +11,7 @@ import UIKit
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var planetPickerView: UIPickerView!
-    @IBOutlet weak var lowButton: UIButton!
-    @IBOutlet weak var mediumButton: UIButton!
-    @IBOutlet weak var highButton: UIButton!
     @IBOutlet weak var costLabel: UILabel!
-    @IBOutlet weak var spaceJunkLevelLabel: UILabel!
     
     var selectedPlanet = Planet.mercury
     let franksPizza = PizzaService(name: "Franks Pizza")
@@ -24,17 +20,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         super.viewDidLoad()
         planetPickerView.dataSource = self
         planetPickerView.delegate = self
-        circleTheButtons()
-    }
-    
-    func circleTheButtons() {
-        let width = UIScreen.main.bounds.size.width
-        let cornerRadius = (width * 0.2) / 2.0
-        let buttons = [lowButton, mediumButton, highButton]
-        for button in buttons {
-            button?.layer.cornerRadius = cornerRadius
-            button?.layer.masksToBounds = true
-        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -74,7 +59,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let cost = franksPizza.deliveryCharge(for: selectedPlanet)
         let costText = "$\(cost)0"
         costLabel.text = costText
-        spaceJunkLevelLabel.text = "Planet: \(selectedPlanet.displayName)" + "\n" + "Space Junk: \(franksPizza.spaceJunk.displayName)"
     }
 
 }
